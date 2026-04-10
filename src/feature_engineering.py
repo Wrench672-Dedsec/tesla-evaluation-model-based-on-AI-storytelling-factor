@@ -305,10 +305,10 @@ def build_feature_matrix(
     df["Target"] = np.log(df["Close"].shift(-target_horizon) / df["Close"])
 
     # Drop raw OHLCV columns that would leak the target
-    df.drop(columns=["Open", "High", "Low", "Close", "Volume"], errors="ignore", inplace=True)
+    df = df.drop(columns=["Open", "High", "Low", "Close", "Volume"], errors="ignore")
 
     # Remove rows with no target (last `horizon` rows)
-    df.dropna(subset=["Target"], inplace=True)
+    df = df.dropna(subset=["Target"])
 
     logger.info("Feature matrix: %d rows × %d columns", *df.shape)
     return df

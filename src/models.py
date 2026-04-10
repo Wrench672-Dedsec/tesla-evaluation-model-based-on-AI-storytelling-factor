@@ -131,8 +131,8 @@ def fit_lasso(
 
     # Fall back to top-5 by absolute magnitude if nothing is selected
     if not selected:
-        top5_idx = np.argsort(np.abs(coef))[-5:]
-        selected = [X_train.columns[i] for i in top5_idx]
+        fallback_top_idx = np.argsort(np.abs(coef))[-5:]
+        selected = [X_train.columns[i] for i in fallback_top_idx]
 
     logger.info("LASSO selected %d / %d features.", len(selected), X_train.shape[1])
 

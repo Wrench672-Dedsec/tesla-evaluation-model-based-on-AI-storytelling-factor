@@ -191,9 +191,10 @@ class TestNLPFactors:
             assert col in nlp_df.columns, f"Missing NLP column: {col}"
 
     def test_score_bounds(self, nlp_df):
+        _TOLERANCE = 0.01  # small numeric slack for floating-point rounding
         for col in ["NLP_news_sentiment", "NLP_earnings_sentiment", "NLP_social_sentiment"]:
             values = nlp_df[col].dropna()
-            assert (values >= -1.01).all() and (values <= 1.01).all(), (
+            assert (values >= -1 - _TOLERANCE).all() and (values <= 1 + _TOLERANCE).all(), (
                 f"{col} out of [-1, 1] range"
             )
 
